@@ -19,16 +19,18 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Product data
 });
 
-router.get('/:id', async (req, res) => {
-  // find a single tag by its `id`
-  // be sure to include its associated Product data
-  try{
-    const tagsData = await
-    res.status(200).json(tagsData);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
+// router.get('/:id', async (req, res) => {
+//   // find a single tag by its `id`
+//   // be sure to include its associated Product data
+//   try{
+//     const tagsData = await Tag.findOne(req.params.id {
+      
+//     })
+//     res.status(200).json(tagsData);
+//   } catch (err) {
+//     res.status(500).json(err);
+//   }
+// });
 
 router.post('/', (req, res) => {
   // create a new tag
