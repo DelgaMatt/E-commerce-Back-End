@@ -3,7 +3,6 @@ const { Product, Category, Tag, ProductTag } = require('../../models');
 
 // The `/api/products` endpoint
 
-// get all products
 router.get('/', async (req, res) => {
   try{
     const productData = await Product.findAll({
@@ -16,7 +15,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// get one product
 router.get('/:id', async (req, res) => {
   try {
     const productData = await Product.findOne({
@@ -28,20 +26,13 @@ router.get('/:id', async (req, res) => {
       res.status(404).json({ message: 'No product found with that id'});
     };
 
-    res.status(200).json(productData)
+    res.status(200).json(productData);
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-// create new product
-router.post('/', async (req, res) => {
-  try{
-    res.status(200).json(product)
-  } catch (err) {
-    res.status(500).json(err);
-  }   
-
+router.post('/', (req, res) => {
     Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
@@ -55,18 +46,15 @@ router.post('/', async (req, res) => {
         return ProductTag.bulkCreate(productTagIdArr);
       }
       // if no product tags, just respond
-      res.status(200).json(newProduct);
+      res.status(200).json(product);
     })
     .then((productTagIds) => res.status(200).json(productTagIds))
-    
-    
     .catch((err) => {
       console.log(err);
       res.status(400).json(err);
     });
 });
 
-// update product
 router.put('/:id', (req, res) => {
   // update product data
   Product.update(req.body, {
